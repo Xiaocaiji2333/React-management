@@ -8,6 +8,7 @@ import {
   UserOutlined,
   LockOutlined
 } from '@ant-design/icons';
+import { reqLogin } from '../../api/index';
 import logo from '../../assets/images/logo.png';
 import './login.less';
 
@@ -17,20 +18,26 @@ export default class Login extends Component {
   formRef = React.createRef();
 
   validDate = (_, value) => {
-    if (value.length <= 4) {
-      return Promise.reject('密码不能低于4位！')
-    } else {
+    // if (value.length <= 4) {
+    //   return Promise.reject('密码不能低于4位！')
+    // } else {
       return Promise.resolve()
-    }
+    // }
   }
 
   login = () => {
     // console.log(this.formRef.current)
-    // const { username, password } = this.formRef.current.getFieldsValue()
+    // const { username, password } = this.formRef.current.getFieldsValue();
     this.formRef.current.validateFields(['username', 'password']).then(value => {
-      console.log(value)
+      // console.log(value);
+      const { username, password } = value;
+      reqLogin(username, password).then(response => {
+        console.log(response);
+      }).catch(error => {
+        console.log(error);
+      });
     }).catch(err => {
-      console.log(err)
+      console.log(err);
     })
   }
 
