@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import {
   Form,
   Input,
-  Button
+  Button,
+  message
 } from 'antd';
 import { 
   UserOutlined,
@@ -11,6 +13,8 @@ import {
 import { reqLogin } from '../../api/index';
 import logo from '../../assets/images/logo.png';
 import './login.less';
+import memoryUtils from '../../utils/memoryUtils';
+import storageUtils from '../../utils/storageUtils';
 
 const Item = Form.Item;
 
@@ -32,16 +36,28 @@ export default class Login extends Component {
       // console.log(value);
       const { username, password } = value;
       reqLogin(username, password).then(response => {
-        console.log(response);
-      }).catch(error => {
-        console.log(error);
-      });
+        if (response.status === 0) {
+          // 保存user
+          const user = response.data;
+          memoryUtils.user = user; // 保存在内存中
+          storageUtils.saveUser(user); // 保存到local中
+          message.success('登录成功！');
+          this.props.history.replace('/');
+        } else {
+          message.error(response.msg);
+        }
+      })
     }).catch(err => {
       console.log(err);
     })
   }
 
   render() {
+    // 如果用户已经登陆, 自动跳转到管理界面
+    const user = memoryUtils.user;
+    if(user && user._id) {
+      return <Redirect to='/'/>;
+    }
     return (
       <div className='login'>
         <header className='login-header'>
