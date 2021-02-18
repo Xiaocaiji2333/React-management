@@ -10,7 +10,8 @@ const Item = Form.Item
 /*
 更新分类的form组件
  */
-class UpdateForm extends Component {
+export default class UpdateForm extends Component {
+  formRef = React.createRef();
 
   static propTypes = {
     categoryName: PropTypes.string.isRequired,
@@ -24,26 +25,16 @@ class UpdateForm extends Component {
 
   render() {
 
-    const {categoryName} = this.props
-    const { getFieldDecorator } = this.props.form
+    const { categoryName } = this.props;
 
     return (
-      <Form>
-        <Item>
-          {
-            getFieldDecorator('categoryName', {
-              initialValue: categoryName,
-              rules: [
-                {required: true, message: '分类名称必须输入'}
-              ]
-            })(
-              <Input placeholder='请输入分类名称'/>
-            )
-          }
+      <Form ref={ this.formRef }>
+        <Item name='categoryName' initialValue={ categoryName } rules={ [
+          { required: true, message: '分类名称必须输入' }
+        ] }>
+          <Input placeholder='请输入分类名称'/>
         </Item>
       </Form>
     )
   }
 }
-
-export default Form.create()(UpdateForm)

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
 import memoryUtils from '../../utils/memoryUtils';
 import LeftNav from '../../components/left-nav';

@@ -20,7 +20,8 @@ const { TextArea } = Input
 /*
 Product的添加和更新的子路由组件
  */
-class ProductAddUpdate extends PureComponent {
+export default class ProductAddUpdate extends PureComponent {
+  formRef = React.createRef();
 
   state = {
     options: [],
@@ -217,60 +218,33 @@ class ProductAddUpdate extends PureComponent {
       </span>
     )
 
-    const {getFieldDecorator} = this.props.form
-
     return (
       <Card title={title}>
-        <Form {...formItemLayout}>
-          <Item label="商品名称">
-            {
-              getFieldDecorator('name', {
-                initialValue: product.name,
-                rules: [
-                  {required: true, message: '必须输入商品名称'}
-                ]
-              })(<Input placeholder='请输入商品名称'/>)
-            }
+        <Form {...formItemLayout} ref={ this.formRef }>
+          <Item label="商品名称" name='name' initialValue={ product.name } rules={ [
+            { required: true, message: '必须输入商品名称' }
+          ] }>
+            <Input placeholder='请输入商品名称'/>
           </Item>
-          <Item label="商品描述">
-            {
-              getFieldDecorator('desc', {
-                initialValue: product.desc,
-                rules: [
-                  {required: true, message: '必须输入商品描述'}
-                ]
-              })(<TextArea placeholder="请输入商品描述" autosize={{ minRows: 2, maxRows: 6 }} />)
-            }
-
+          <Item label="商品描述" name='desc' initialValue={ product.desc } rules={ [
+            { required: true, message: '必须输入商品描述' }
+          ] }>
+            <TextArea placeholder="请输入商品描述" autosize={{ minRows: 2, maxRows: 6 }} />
           </Item>
-          <Item label="商品价格">
-
-            {
-              getFieldDecorator('price', {
-                initialValue: product.price,
-                rules: [
-                  {required: true, message: '必须输入商品价格'},
-                  {validator: this.validatePrice}
-                ]
-              })(<Input type='number' placeholder='请输入商品价格' addonAfter='元'/>)
-            }
+          <Item label="商品价格" name='price' initialValue={ product.price } rules={ [
+            { required: true, message: '必须输入商品价格' },
+            { validator: this.validatePrice }
+          ] }>
+            <Input type='number' placeholder='请输入商品价格' addonAfter='元'/> 
           </Item>
-          <Item label="商品分类">
-            {
-              getFieldDecorator('categoryIds', {
-                initialValue: categoryIds,
-                rules: [
-                  {required: true, message: '必须指定商品分类'},
-                ]
-              })(
-                <Cascader
-                  placeholder='请指定商品分类'
-                  options={this.state.options}  /*需要显示的列表数据数组*/
-                  loadData={this.loadData} /*当选择某个列表项, 加载下一级列表的监听回调*/
-                />
-              )
-            }
-
+          <Item label="商品分类" name='categoryIds' initialValue={ categoryIds } rules={ [
+            { required: true, message: '必须指定商品分类' }
+          ] }>
+            <Cascader
+              placeholder='请指定商品分类'
+              options={this.state.options}  /*需要显示的列表数据数组*/
+              loadData={this.loadData} /*当选择某个列表项, 加载下一级列表的监听回调*/
+            />
           </Item>
           <Item label="商品图片">
             <PicturesWall ref={this.pw} imgs={imgs}/>
@@ -286,8 +260,6 @@ class ProductAddUpdate extends PureComponent {
     )
   }
 }
-
-export default Form.create()(ProductAddUpdate)
 
 
 /*

@@ -17,6 +17,7 @@ import UpdateForm from './update-form'
 商品分类路由
  */
 export default class Category extends Component {
+  formRef = React.createRef();
 
   state = {
     loading: false, // 是否正在获取数据中
@@ -121,7 +122,8 @@ export default class Category extends Component {
    */
   handleCancel = () => {
     // 清除输入数据
-    this.form.resetFields()
+    console.log(this.formRef.current);
+    this.formRef.current.resetFields();
     // 隐藏确认框
     this.setState({
       showStatus: 0
@@ -141,7 +143,7 @@ export default class Category extends Component {
   添加分类
    */
   addCategory = () => {
-    this.form.validateFields(async (err, values) => {
+    this.formRef.current.validateFields(async (err, values) => {
       if (!err) {
         // 隐藏确认框
         this.setState({
@@ -151,7 +153,7 @@ export default class Category extends Component {
         // 收集数据, 并提交添加分类的请求
         const {parentId, categoryName} = values
         // 清除输入数据
-        this.form.resetFields()
+        this.formRef.current.resetFields()
         const result = await reqAddCategory(categoryName, parentId)
         if(result.status===0) {
 
