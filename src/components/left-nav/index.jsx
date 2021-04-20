@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
-import {Link, withRouter} from 'react-router-dom'
-import {Menu, Icon} from 'antd';
+import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import { Menu, Icon } from 'antd';
 
-import logo from '../../assets/images/logo.png'
-import menuList from '../../config/menuConfig'
-import './index.less'
+import logo from '../../assets/images/img.png';
+import menuList from '../../config/menuConfig';
+import './index.less';
 import memoryUtils from "../../utils/memoryUtils";
 
 const SubMenu = Menu.SubMenu;
@@ -18,22 +18,22 @@ class LeftNav extends Component {
   判断当前登陆用户对item是否有权限
    */
   hasAuth = (item) => {
-    const {key, isPublic} = item
+    const {key, isPublic} = item;
 
-    const menus = memoryUtils.user.role.menus
-    const username = memoryUtils.user.username
+    const menus = memoryUtils.user.role.menus;
+    const username = memoryUtils.user.username;
     /*
     1. 如果当前用户是admin
     2. 如果当前item是公开的
     3. 当前用户有此item的权限: key有没有menus中
      */
     if(username==='admin' || isPublic || menus.indexOf(key)!==-1) {
-      return true
+      return true;
     } else if(item.children){ // 4. 如果当前用户有此item的某个子item的权限
-      return !!item.children.find(child =>  menus.indexOf(child.key)!==-1)
+      return !!item.children.find(child =>  menus.indexOf(child.key)!==-1);
     }
 
-    return false
+    return false;
   }
 
   /*
@@ -174,8 +174,8 @@ class LeftNav extends Component {
     return (
       <div className="left-nav">
         <Link to='/' className="left-nav-header">
-          <img src={logo} alt="logo"/>
-          <h1>硅谷后台</h1>
+          <img src={ logo } alt="logo"/>
+          <h1>管理员后台</h1>
         </Link>
 
         <Menu

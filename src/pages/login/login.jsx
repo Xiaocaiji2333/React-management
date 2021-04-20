@@ -11,7 +11,7 @@ import {
   LockOutlined
 } from '@ant-design/icons';
 import { reqLogin } from '../../api/index';
-import logo from '../../assets/images/logo.png';
+import logo from '../../assets/images/img.png';
 import './login.less';
 import memoryUtils from '../../utils/memoryUtils';
 import storageUtils from '../../utils/storageUtils';
@@ -62,7 +62,7 @@ export default class Login extends Component {
       <div className='login'>
         <header className='login-header'>
           <img src={ logo } alt="logo"/>
-          <h1>React项目：后台管理系统</h1>
+          <h1>React项目：网上花店管理系统</h1>
         </header>
         <section className='login-content'>
           <h3>用户登录</h3>
