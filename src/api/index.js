@@ -1,33 +1,32 @@
-import jsonp from 'jsonp'
-import {message} from 'antd'
-import ajax from './ajax'
+import jsonp from 'jsonp';
+import { message } from 'antd';
+import ajax from './ajax';
 
-// const BASE = 'http://localhost:9002'
-const BASE = ''
+// const BASE = 'http://localhost:9002';
+const BASE = '';
 // 登陆
-/*
-export function reqLogin(username, password) {
-  return ajax('/login', {username, password}, 'POST')
-}*/
-export const reqLogin = (username, password) => ajax(BASE + '/login', {username, password}, 'POST')
+export const reqLogin = (username, password) => ajax(BASE + '/login', { username, password }, 'POST');
+
+// 注册
+export const reqRegister = () => ajax(BASE + '/register', {}, 'POST');
 
 // 获取一级/二级分类的列表
-export const reqCategorys = (parentId) => ajax(BASE + '/manage/category/list', {parentId})
+export const reqCategorys = (parentId) => ajax(BASE + '/manage/category/list', { parentId }, 'GET');
 
 // 添加分类
-export const reqAddCategory = (categoryName, parentId) => ajax(BASE + '/manage/category/add', {categoryName, parentId}, 'POST')
+export const reqAddCategory = (categoryName, parentId) => ajax(BASE + '/manage/category/add', { categoryName, parentId }, 'POST');
 
 // 更新分类
-export const reqUpdateCategory = ({categoryId, categoryName}) => ajax(BASE + '/manage/category/update', {categoryId, categoryName}, 'POST')
+export const reqUpdateCategory = ({ categoryId, categoryName }) => ajax(BASE + '/manage/category/update', { categoryId, categoryName }, 'POST');
 
 // 获取一个分类
-export const reqCategory = (categoryId) => ajax(BASE + '/manage/category/info', {categoryId})
+export const reqCategory = (categoryId) => ajax(BASE + '/manage/category/info', { categoryId }, 'GET');
 
 // 获取商品分页列表
-export const reqProducts = (pageNum, pageSize) => ajax(BASE + '/manage/product/list', {pageNum, pageSize})
+export const reqProducts = (pageNum, pageSize) => ajax(BASE + '/manage/product/list', { pageNum, pageSize }, 'GET');
 
 // 更新商品的状态(上架/下架)
-export const reqUpdateStatus = (productId, status) => ajax(BASE + '/manage/product/updateStatus', {productId, status}, 'POST')
+export const reqUpdateStatus = (productId, status) => ajax(BASE + '/manage/product/updateStatus', { productId, status }, 'POST');
 
 
 
@@ -39,7 +38,7 @@ export const reqSearchProducts = ({pageNum, pageSize, searchName, searchType}) =
   pageNum,
   pageSize,
   [searchType]: searchName,
-})
+}, 'GET')
 
 // 搜索商品分页列表 (根据商品描述)
 /*export const reqSearchProducts2 = ({pageNum, pageSize, searchName}) => ajax(BASE + '/manage/product/search', {
@@ -58,7 +57,7 @@ export const reqAddOrUpdateProduct = (product) => ajax(BASE + '/manage/product/'
 
 
 // 获取所有角色的列表
-export const reqRoles = () => ajax(BASE + '/manage/role/list')
+export const reqRoles = () => ajax(BASE + '/manage/role/list', {}, 'GET')
 // 添加角色
 export const reqAddRole = (roleName) => ajax(BASE + '/manage/role/add', {roleName}, 'POST')
 // 添加角色
@@ -66,7 +65,7 @@ export const reqUpdateRole = (role) => ajax(BASE + '/manage/role/update', role, 
 
 
 // 获取所有用户的列表
-export const reqUsers = () => ajax(BASE + '/manage/user/list')
+export const reqUsers = () => ajax(BASE + '/manage/user/list', {}, "GET")
 // 删除指定用户
 export const reqDeleteUser = (userId) => ajax(BASE + '/manage/user/delete', {userId}, 'POST')
 // 添加/更新用户
@@ -75,23 +74,22 @@ export const reqAddOrUpdateUser = (user) => ajax(BASE + '/manage/user/'+(user._i
 /*
 json请求的接口请求函数
  */
-export const reqWeather = (city) => {
-
-  return new Promise((resolve, reject) => {
-    const url = `http://api.map.baidu.com/telematics/v3/weather?location=${city}&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`
-    // 发送jsonp请求
-    jsonp(url, {}, (err, data) => {
-      console.log('jsonp()', err, data)
-      // 如果成功了
-      if (!err && data.status==='success') {
-        // 取出需要的数据
-        const {dayPictureUrl, weather} = data.results[0].weather_data[0]
-        resolve({dayPictureUrl, weather})
-      } else {
-        // 如果失败了
-        message.error('获取天气信息失败!')
-      }
-
-    })
-  })
-}
+// export const reqWeather = (city) => {
+//   return new Promise((resolve, reject) => {
+//     const url = `http://api.map.baidu.com/telematics/v3/weather?location=${city}&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`
+//     // 发送jsonp请求
+//     jsonp(url, {}, (err, data) => {
+//       console.log('jsonp()', err, data)
+//       // 如果成功了
+//       if (!err && data.status==='success') {
+//         // 取出需要的数据
+//         const {dayPictureUrl, weather} = data.results[0].weather_data[0]
+//         resolve({dayPictureUrl, weather})
+//       } else {
+//         // 如果失败了
+//         message.error('获取天气信息失败!')
+//       }
+//
+//     })
+//   })
+// }

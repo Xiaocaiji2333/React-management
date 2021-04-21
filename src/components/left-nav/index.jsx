@@ -162,10 +162,10 @@ class LeftNav extends Component {
   render() {
     // debugger
     // 得到当前请求的路由路径
-    let path = this.props.location.pathname
-    console.log('render()', path)
-    if(path.indexOf('/product')===0) { // 当前请求的是商品或其子路由界面
-      path = '/product'
+    let path = this.props.location.pathname;
+    console.log('render()', path);
+    if(path.indexOf('/product') === 0) { // 当前请求的是商品或其子路由界面
+      path = '/product';
     }
 
     // 得到需要打开菜单项的key
@@ -180,7 +180,7 @@ class LeftNav extends Component {
 
         <Menu
           mode="inline"
-          theme="dark"
+          theme="light"
           selectedKeys={[path]}
           defaultOpenKeys={[openKey]}
         >
