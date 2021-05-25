@@ -1,23 +1,23 @@
 const menuList = [
   {
     title: '首页', // 菜单标题名称
-    key: '/home', // 对应的path
+    key: '/admin/home', // 对应的path
     icon: 'home', // 图标名称
-    isPublic: true, // 公开的
   },
+
   {
-    title: '商品',
-    key: '/products',
+    title: '产品管理',
+    key: '/admin/products',
     icon: 'appstore',
     children: [ // 子菜单列表
       {
-        title: '品类管理',
-        key: '/category',
+        title: '鲜花管理',
+        key: '/admin/flower',
         icon: 'bars'
       },
       {
-        title: '商品管理',
-        key: '/product',
+        title: '成品管理',
+        key: '/admin/product',
         icon: 'tool'
       },
     ]
@@ -25,43 +25,33 @@ const menuList = [
 
   {
     title: '用户管理',
-    key: '/user',
+    key: '/admin/user',
     icon: 'user'
   },
+
   {
-    title: '角色管理',
-    key: '/role',
+    title: '管理员管理',
+    key: '/admin/adminor',
     icon: 'safety',
   },
 
   {
-    title: '图形图表',
-    key: '/charts',
-    icon: 'area-chart',
-    children: [
-      {
-        title: '柱形图',
-        key: '/charts/bar',
-        icon: 'bar-chart'
-      },
-      {
-        title: '折线图',
-        key: '/charts/line',
-        icon: 'line-chart'
-      },
-      {
-        title: '饼图',
-        key: '/charts/pie',
-        icon: 'pie-chart'
-      },
-    ]
+    title: '订单管理',
+    key: '/admin/order',
+    icon: 'windows',
   },
 
   {
-    title: '订单管理',
-    key: '/order',
+    title: '评论管理',
+    key: '/admin/comment',
     icon: 'windows',
   },
-]
 
-export default menuList
+  {
+    title: '商家信息管理',
+    key: '/admin/factor',
+    icon: 'windos',
+  },
+];
+
+export default menuList;

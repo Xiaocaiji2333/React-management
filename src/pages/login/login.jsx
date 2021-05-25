@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {
   Form,
   Input,
@@ -12,9 +12,10 @@ import {
 } from '@ant-design/icons';
 import { reqLogin } from '../../api/index';
 import logo from '../../assets/images/img.png';
-import './login.less';
 import memoryUtils from '../../utils/memoryUtils';
 import storageUtils from '../../utils/storageUtils';
+
+import './login.less';
 
 const Item = Form.Item;
 
@@ -25,7 +26,7 @@ export default class Login extends Component {
     // if (value.length <= 4) {
     //   return Promise.reject('密码不能低于4位！')
     // } else {
-      return Promise.resolve()
+      return Promise.resolve();
     // }
   }
 
@@ -39,10 +40,12 @@ export default class Login extends Component {
         if (response.status === 0) {
           // 保存user
           const user = response.data;
+          // console.log(user);
           memoryUtils.user = user; // 保存在内存中
           storageUtils.saveUser(user); // 保存到local中
           message.success('登录成功！');
-          this.props.history.replace('/');
+          if (user.type === 1 || user.type === 0) this.props.history.replace('/admin');
+          else if (user.type === 0) this.props.history.replace('/customer');
         } else {
           message.error(response.msg);
         }
@@ -53,16 +56,20 @@ export default class Login extends Component {
   }
 
   render() {
-    // 如果用户已经登陆, 自动跳转到管理界面
+    // 如果用户已经登陆, 自动跳转到首页
     const user = memoryUtils.user;
-    if(user && user._id) {
-      return <Redirect to='/'/>;
+    // console.log(user);
+    if(user.type === 1 || user.type === 2) {
+      return <Redirect to='/admin'/>;
+    } else if (user.type === 0) {
+      // console.log(user);
+      return <Redirect to='/customer'/>
     }
     return (
       <div className='login'>
         <header className='login-header'>
           <img src={ logo } alt="logo"/>
-          <h1>React项目：网上花店管理系统</h1>
+          <h1>毕业设计：网上花店管理系统</h1>
         </header>
         <section className='login-content'>
           <h3>用户登录</h3>
@@ -81,6 +88,7 @@ export default class Login extends Component {
                 type='password' placeholder='密码'></Input>
             </Item>
             <Button type='primary' htmlType='submit' className='login-form-button'>登录</Button>
+            <div style={{ textAlign: 'center', marginTop: '16px' }}><Link to='/register'>注册</Link></div>
           </Form>
         </section>
       </div>

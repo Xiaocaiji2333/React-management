@@ -3,4 +3,5 @@
  */
 export default {
   user: {}, // 保存当前登陆的user
+  shoppingCart: [], // 保存选中的商品
 }
